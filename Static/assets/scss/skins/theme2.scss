@@ -1,0 +1,413 @@
+﻿@import '../base/colors';
+
+$t2-yellow:         #efc673;
+$t2-yellowlight:    #f1d49b;
+$t2-orange:         #ef6f6f;
+$t2-orangelight:    #ff9a9a;
+$t2-darkblue:       #3a4b60;
+$t2-dark:           #3a4b60;
+$t2-lightdark:      #6c7989;
+$t2-xlightdark:     #9aa2ac;
+$t2-card:           #ffffff;
+$t2-xlight:         #eff2f7;
+
+
+::selection {
+    color: $white; 
+    background: $t2-orange;
+}
+a,
+.btn-link{
+    color: $t2-orange;
+}
+.text-green,
+.text-info,
+.text-success,
+.text-danger,
+.text-primary,
+.text-warning,
+.mail-star.active,
+.page-title{ color: $t2-orange !important;}
+.badge-default{
+    background: $t2-lightdark;
+    color: $t2-xlight;
+}
+.loader{
+    color: $t2-orange;
+}
+.badge-primary{
+    background-color: $t2-orange;
+}
+.btn-primary{
+    background: $t2-orange;
+    color: $white;
+    border-color: $t2-orange;
+}
+.btn-info{
+    background-color: $t2-yellow;
+    border-color: $t2-yellow;
+}
+.nav-tabs .nav-link.active{
+    border-color: $t2-orange;
+    color: $t2-orange;
+}
+.form-control{
+    &:focus{
+        box-shadow: 0 0 0 0.2rem rgba($t2-orange,.25);
+    }
+}
+.card,
+.dropify-wrapper,
+.btn-primary{
+    border: 0;
+}
+.bg-primary,
+.bg-info,
+.bg-warning,
+.btn-success{
+    background-color: $t2-orange !important;
+    border: transparent;
+}
+.bg-success,
+.bg-danger,
+.badge-success,
+.progress-bar,
+.btn-danger,
+.btn-warning{
+    background-color: $t2-yellow;
+    border: transparent;
+}
+
+.btn-outline-primary{
+    color: $t2-orange;
+    border-color: $t2-orange;
+    &:hover{
+        background-color: $t2-orange;
+        border-color: $t2-orange;
+    }
+}
+.custom-control-input:checked~.custom-control-label::before,
+.custom-radio .custom-control-input:disabled:checked~.custom-control-label::before,
+.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before{
+    border-color: $t2-orange;
+    background-color: $t2-orange;
+}
+.custom-select{
+    background-color: transparent;
+    border-color: $white;
+}
+.multiselect_div{
+    >.btn-group{
+        .btn{
+            background-color: transparent;
+            border-color: $white;
+        }
+    }
+}
+.custom-switch-input:checked ~ .custom-switch-indicator{
+    background: $t2-orange;
+}
+.selectgroup-input:checked+.selectgroup-button{
+    border-color: $t2-orange;
+    color: $t2-orange;
+    background: rgba($t2-orange, 0.2);
+}
+.form-control,
+.dataTables_wrapper .dataTables_filter,
+.input-group-text{
+    border-color: $white;
+    background: transparent;
+}
+
+.imagecheck-figure:before{
+    color: $t2-yellow !important;
+}
+.wizard > .steps .current a,
+.wizard > .steps .current a:hover,
+.wizard > .steps .current a:active,
+.wizard > .actions a,
+.wizard > .actions a:hover{
+    background: $t2-orange;
+}
+.wizard > .steps .done a,
+.wizard > .steps .done a:hover{
+    background: rgba($t2-orange, 0.2);
+    color: $t2-orange;
+}
+.table{
+    th{
+        color: $t2-darkblue;
+    }
+    &.table-custom{        
+        td, th{
+            background: rgba($white, 0.5);
+        }
+    }
+    &.table_custom tr{
+        background: rgba($white, 0.5);
+    }
+}
+.inline-datepicker.fill_bg{
+    color: $t2-orange;
+}
+.right_chat li.online .status{
+    background: $t2-orange;
+}
+
+.bg-blue,
+.bg-azure,
+.bg-indigo,
+.bg-purple,
+.bg-red,
+.bg-orange  { background-color: $t2-orange !important; }
+
+.bg-pink,
+.bg-yellow,
+.bg-lime,
+.bg-green,
+.bg-teal,
+.bg-cyan    { background-color: $t2-yellow !important; }
+
+.bg-light-blue,
+.bg-light-azure,
+.bg-light-indigo,
+.bg-light-lime,
+.bg-light-green,
+.bg-light-teal    { background-color: rgba($t2-orange, 0.3); color: $t2-dark; }
+
+.bg-light-pink,
+.bg-light-red,
+.bg-light-orange,
+.bg-light-yellow,
+.bg-light-cyan    { background-color: rgba($t2-yellow, 0.3); color: $t2-dark; }
+
+.bg-light-purple  { background-color: rgba($t2-orangelight, 0.3); color: $t2-orangelight; }
+.bg-light-gray    { background-color: rgba($gray-500, 0.3); color: $gray-500; }
+
+.avatar {
+    &.avatar-blue,
+    &.avatar-azure,
+    &.avatar-indigo,
+    &.avatar-purple,
+    &.avatar-pink,
+    &.avatar-red,
+    &.avatar-orange{
+        background-color: rgba($t2-orange, 0.3);
+        color: $t2-orange;
+    }
+    &.avatar-yellow,
+    &.avatar-lime,
+    &.avatar-green,
+    &.avatar-teal,
+    &.avatar-cyan {
+        background-color: rgba($t2-yellow, 0.3);
+        color: $t2-yellow;
+    }
+}
+
+
+body{
+    //background-color: $t2-xlight;
+    &::after{
+        background:  url(../../../assets/images/bg.jpg) top center;
+        background-size: cover;
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+    }    
+    color: $t2-darkblue;
+    &.offcanvas-active{
+        #left-sidebar{
+            background: $white;
+        }
+    }
+    &.dark-mode{
+        &::after{
+            display: none;
+        }
+    }
+}
+
+.page-header .right .nav-pills .nav-link{
+    color: $t2-darkblue;
+}
+#header_top{
+    .brand-logo{
+        background: $t2-orange;
+    }
+}
+.header{
+    background: $t2-orange;
+    .nav-tabs{
+        .nav-link{
+            color: $white;
+            &.active{
+                border-color: $white; 
+            }
+        }            
+    }
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item.active{
+        color: $t2-orange;
+    }
+}
+.page{
+    .section-white,
+    .section-body{
+        background: transparent;
+    }
+    .section-light{
+        background: rgba($white, 0.5);
+    }
+}
+#header_top .nav-link{
+    color: $t2-darkblue;
+}
+.header_top{
+    &.dark{
+        background-color: $t2-dark !important;
+        .nav-link{
+            color: $t2-xlight !important;
+        }
+    }
+}
+.card{
+    background: rgba($white, 0.5);
+
+    .card-options{
+        a{
+            &.btn{
+                color: $white;
+            }
+        }
+    }
+    &.card-fullscreen{
+        background-color: $t2-card !important;
+    }
+}
+#left-sidebar{
+    background: rgba($white, 0.1);
+}
+.metismenu {
+    a{
+        color: $t2-darkblue;
+        &:hover{
+            color: $t2-orange;
+            border-color: $t2-orange;
+        }
+    }
+    .active{
+        > a{
+            color: $t2-orange;
+            border-color: $t2-orange;
+        }
+        ul{
+            .active{
+                a{
+                    color: $t2-orange;
+                    background: transparent;
+                }
+            }
+        }
+    }
+    &.grid{
+        >li{
+            &.active > a,
+            >a:hover{
+                background: rgba($t2-orange, 0.1);
+                color: $t2-orange;
+            }
+        }
+    }
+}
+.inbox .detail{
+    background: $white;
+}
+.file_folder a{
+    background: $white;
+    border-color: $t2-xlight;
+}
+.auth .auth_left{
+    background: transparent;
+    width: 50%;
+    @media screen and (max-width: 992px){
+        width: 100%;
+    }
+    > .card{
+        max-width: 340px;
+        margin-left: auto;
+    }
+}
+.gender_overview{
+    background: $t2-xlight;
+}
+.table-calendar-link{
+    background: $t2-orange;
+    &:hover{
+        background: $t2-dark;
+    }
+    &::before{
+        background: $t2-dark;
+    }
+}
+.theme_div{
+    background: $t2-card;
+}
+
+
+// 
+.top_dark {
+    background-color: $t2-dark !important;
+}
+.sidebar_dark{
+    #left-sidebar{
+        background-color: $t2-dark !important;
+    }
+    #header_top .nav-link{
+        color: $t2-xlight !important;
+    }
+    .metismenu .active>a{
+        color: $t2-orange;
+    }
+}
+.iconcolor{
+    #header_top{
+        .nav-link{
+            color: $t2-orange !important;
+        }
+    }
+}
+.gradient{
+    .fa{
+        background: -webkit-linear-gradient(45deg, $t2-orange, $t2-yellow);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .custom-switch-input:checked ~ .custom-switch-indicator{
+        background: linear-gradient(45deg, $t2-orange, $t2-yellow) !important;
+    }
+    .metismenu.grid>li.active>a,
+    .metismenu.grid>li>a:hover{
+        background: linear-gradient(45deg, $t2-orange, $t2-orange) !important;
+        color: $white;
+        border: 0;
+    }        
+    .btn-primary{
+        background: linear-gradient(45deg, $t2-orange, $t2-yellow) !important;
+        border: 0;
+    }
+    .btn-dark{
+        background: linear-gradient(45deg, $gray-400, $gray-700) !important;
+    }
+    .bg-success,
+    .bg-danger,
+    .badge-success,
+    .progress-bar,
+    .btn-danger{
+        background: linear-gradient(45deg, $t2-orange, $t2-yellow) !important;
+    }
+}

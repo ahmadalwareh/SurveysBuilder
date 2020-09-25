@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Onion Opinion | Contact Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static '/images/logo.svg' %}" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="{% static '/css/style.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static '/css/theme2.css' %}"/>
+    <style>
+        .form-control, .dataTables_wrapper .dataTables_filter, .input-group-text {
+            border-color: #ffffff !important;
+            font-size: 14px !important;
+            height: auto !important;
+            border: 1px solid white !important;
+        }
+
+    </style>
+</head>
+<body id="body" data-spy="scroll" data-target=".navbar" data-offset="100" data-aos-easing="ease"
+      data-aos-duration="1200" data-aos-delay="0" class="">
+<header id="header-section">
+    <nav class="navbar navbar-expand-lg pl-3 pl-sm-0" id="navbar">
+        <div class="container">
+            <div class="navbar-brand-wrapper d-flex w-100">
+                <img src="assets/images/logo.svg" style="width: 150px;" alt="">
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="mdi mdi-menu navbar-toggler-icon"></span></button>
+            </div>
+            <div class="collapse navbar-collapse navbar-menu-wrapper" id="navbarSupportedContent">
+                <ul class="navbar-nav align-items-lg-center align-items-start ml-auto">
+                    <li class="d-flex align-items-center justify-content-between pl-4 pl-lg-0">
+                        <div class="navbar-collapse-logo"><img src="{% static '/images/logo.svg' %}" alt=""></div>
+                        <button class="navbar-toggler close-button" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="mdi mdi-close navbar-toggler-icon pl-5"></span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                        <a class="nav-link active" href="{% url 'Main:user_surveys' %}">Dashboard <span class="sr-only">(current)</span></a>
+                        {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'Main:home' %}">Home <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Main:contact_us' %}">Connect with us</a>
+                    </li>
+                    {% endif %}
+                    </li>
+                    <li class="nav-item btn-contact-us pl-4 pl-lg-0 ml-2">
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-danger" href="{% url 'Accounts:logout' %}"> Logout</a>
+                        {% else %}
+                        <a class="btn btn-info" href="{% url 'Accounts:login' %}"> Login | Register</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Contact US</h3>
+                    </div>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-label">FullName</label>
+                                <input type="text" class="form-control" name="fullname" placeholder="FullName.."
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <input type="text" class="form-control" name="subject" placeholder="Subject.." required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" placeholder="Email.." required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" name="message" rows="6" placeholder="Message.."
+                                          required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="border-top">
+            <p class="text-center text-muted pt-4">Copyright © 2019<a href="#" class="px-1">Onion Opinion.</a>All rights
+                reserved.</p>
+        </footer>
+    </div>
+</div>
+<script src="{% static '/js/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static '/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static '/js/landingpage.js' %}" type="text/javascript"></script>
+</body>
+</html>

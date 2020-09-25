@@ -1,0 +1,291 @@
+﻿@import '../base/colors';
+
+
+::selection {
+    color: $white; 
+    background: $indigo;
+}
+a,
+.btn-link{
+    color: $pink;
+}
+.text-green,
+.text-info,
+.text-success,
+.text-danger,
+.text-primary,
+.text-warning,
+.mail-star.active,
+.page-title{ color: $indigo !important;}
+
+.loader{
+    color: $indigo;
+}
+.badge-primary{
+    background-color: $indigo;
+}
+.btn-primary{
+    background: $indigo;
+    color: $white;
+    border-color: $indigo;
+}
+.nav-tabs .nav-link.active{
+    border-color: $indigo;
+    color: $indigo;
+}
+.form-control{
+    &:focus{
+        box-shadow: 0 0 0 0.2rem rgba($indigo,.25);
+    }
+}
+.card,
+.dropify-wrapper,
+.btn-primary{
+    border: 0;
+}
+.bg-primary,
+.bg-info,
+.bg-warning,
+.btn-success{
+    background-color: $indigo !important;
+    border: transparent;
+}
+.bg-success,
+.bg-danger,
+.badge-success,
+.progress-bar,
+.btn-danger,
+.btn-warning{
+    background-color: $pink;
+    border: transparent;
+}
+
+.btn-outline-primary{
+    color: $indigo;
+    border-color: $indigo;
+    &:hover{
+        background-color: $indigo;
+        border-color: $indigo;
+    }
+}
+.custom-control-input:checked~.custom-control-label::before,
+.custom-radio .custom-control-input:disabled:checked~.custom-control-label::before,
+.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before{
+    border-color: $indigo;
+    background-color: $indigo;
+}
+.selectgroup-input:checked+.selectgroup-button{
+    border-color: $indigo;
+    color: $indigo;
+    background: rgba($indigo, 0.2);
+}
+
+.imagecheck-figure:before{
+    color: $pink !important;
+}
+.wizard > .steps .current a,
+.wizard > .steps .current a:hover,
+.wizard > .steps .current a:active,
+.wizard > .actions a,
+.wizard > .actions a:hover{
+    background: $indigo;
+}
+.wizard > .steps .done a,
+.wizard > .steps .done a:hover{
+    background: rgba($indigo, 0.2);
+    color: $indigo2;
+}
+
+.bg-blue    { background-color: $indigo;}
+.bg-azure   { background-color: $indigo; }
+.bg-indigo  { background-color: $indigo; }
+.bg-purple  { background-color: $indigo; }
+.bg-pink    { background-color: $pink; }
+.bg-red     { background-color: $indigo; }
+.bg-orange  { background-color: $indigo; }
+.bg-yellow  { background-color: $pink; }
+.bg-lime    { background-color: $pink; }
+.bg-green   { background-color: $pink; }
+.bg-teal    { background-color: $pink; }
+.bg-cyan    { background-color: $pink; }
+
+.bg-light-blue    { background-color: rgba($indigo, 0.1); color: $indigo; }
+.bg-light-azure   { background-color: rgba($indigo, 0.1); color: $indigo; }
+.bg-light-indigo  { background-color: rgba($indigo, 0.1); color: $indigo; }
+.bg-light-purple  { background-color: rgba($purple, 0.1); color: $purple; }
+.bg-light-pink    { background-color: rgba($pink, 0.1); color: $pink; }
+.bg-light-red     { background-color: rgba($pink, 0.1); color: $pink; }
+.bg-light-orange  { background-color: rgba($pink, 0.1); color: $pink; }
+.bg-light-yellow  { background-color: rgba($pink, 0.1); color: $pink; }
+.bg-light-lime    { background-color: rgba($indigo, 0.1); color: $indigo; }
+.bg-light-green   { background-color: rgba($indigo, 0.1); color: $indigo; }
+.bg-light-teal    { background-color: rgba($indigo, 0.1); color: $indigo; }
+.bg-light-cyan    { background-color: rgba($pink, 0.1); color: $pink; }
+.bg-light-gray    { background-color: rgba($gray-500, 0.1); color: $gray-500; }
+
+.avatar {
+    &.avatar-blue {
+        background-color: rgba($indigo, 0.1);
+        color: $indigo;
+    }
+    &.avatar-azure {
+        background-color: rgba($indigo, 0.1);
+        color: $indigo;
+    }
+    &.avatar-indigo {
+        background-color: rgba($indigo, 0.1);
+        color: $indigo;
+    }
+    &.avatar-purple {
+        background-color: rgba($indigo, 0.1);
+        color: $indigo;
+    }
+    &.avatar-pink {
+        background-color: rgba($indigo, 0.1);
+        color: $indigo;
+    }
+    &.avatar-red {
+        background-color: rgba($indigo, 0.1);
+        color: $indigo;
+    }
+    &.avatar-orange {
+        background-color: rgba($indigo, 0.1);
+        color: $indigo;
+    }
+    &.avatar-yellow {
+        background-color: rgba($pink, 0.1);
+        color: $pink;
+    }
+    &.avatar-lime {
+        background-color: rgba($pink, 0.1);
+        color: $pink;
+    }
+    &.avatar-green {
+        background-color: rgba($pink, 0.1);
+        color: $pink;
+    }
+    &.avatar-teal {
+        background-color: rgba($pink, 0.1);
+        color: $pink;
+    }
+    &.avatar-cyan {
+        background-color: rgba($pink, 0.1);
+        color: $pink;
+    }
+}
+
+#header_top{
+    .brand-logo{
+        background: $indigo;
+    }
+}
+
+.header{
+    background: $indigo;
+    .nav-tabs{
+        .nav-link{
+            color: $white;
+            &.active{
+                border-color: $white; 
+            }
+        }            
+    }
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item.active{
+        color: $indigo;
+    }
+}
+.card{
+    .card-options{
+        a{
+            &.btn{
+                color: $white;
+            }
+        }
+    }
+}
+.custom-switch-input:checked ~ .custom-switch-indicator{
+    background: $indigo;
+}
+#left-sidebar{
+    .sidebar-nav{
+        margin-right: 0;
+    }
+}
+.metismenu {
+    a{
+        border-radius: 3px; 
+        padding: 10px;
+        &:hover{
+            background: rgba($indigo, 0.3);
+            color: $indigo;
+        }
+    }
+    .active{
+        > a{
+            color: $white;
+            background: $indigo;
+            border: 0;
+        }
+        ul{
+            .active{
+                a{
+                    color: $indigo;
+                    background: transparent;
+                }
+            }
+        }
+    }
+    &.grid{
+        padding-right: 0;
+        >li{
+            &.active > a,
+            >a:hover{
+                background: rgba($indigo, 0.1);
+                color: $indigo;
+            }
+        }
+    }
+}
+.iconcolor{
+    #header_top{
+        .nav-link{
+            color: $indigo2 !important;
+        }
+    }
+}
+.gradient{
+    .fa{
+        background: -webkit-linear-gradient(45deg, $indigo, $pink);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .custom-switch-input:checked ~ .custom-switch-indicator{
+        background: linear-gradient(45deg, $indigo, $pink) !important;
+    }
+    .metismenu.grid>li.active>a,
+    .metismenu.grid>li>a:hover{
+        background: linear-gradient(45deg, $indigo, $indigo2) !important;
+        color: $white;
+        border: 0;
+    }        
+    .btn-primary{
+        background: linear-gradient(45deg, $indigo, $pink) !important;
+        border: 0;
+    }
+    .btn-dark{
+        background: linear-gradient(45deg, $gray-400, $gray-700) !important;
+    }
+    .bg-success,
+    .bg-danger,
+    .badge-success,
+    .progress-bar,
+    .btn-danger{
+        background: linear-gradient(45deg, $indigo, $pink) !important;
+    }
+}
+.sidebar_dark{
+    .metismenu .active>a{
+        color: $indigo2;
+    }
+}

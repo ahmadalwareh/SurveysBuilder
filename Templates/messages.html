@@ -1,0 +1,162 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="Onion Opinion" name="description">
+    <meta content="Onion Opinion designer" name="author">
+    <link href="{% static '/images/favicon.ico' %}" rel="icon" type="image/x-icon"/>
+    <title>Onion Opinion | Messages</title>
+    <!-- Bootstrap Core and vandor -->
+    <link href="{% static '/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <!-- Core css -->
+    <link href="{% static '/css/main.css' %}" rel="stylesheet"/>
+    <link href="{% static '/css/theme2.css' %}" rel="stylesheet"/>
+</head>
+<body class="font-opensans">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div id="main_content">
+    <div class="header_top" id="header_top">
+        <div class="container">
+            <div class="hright">
+                <div class="dropdown">
+                    <a class="nav-link icon menu_toggle" data-original-title="Expand" data-toggle="tooltip"
+                       href="javascript:void(0)"><i class="fa fa-align-left"></i></a>
+                    <a class="nav-link icon menu_toggle" data-original-title="Logout" data-toggle="tooltip"
+                       href="{% url 'Accounts:logout' %}"><i class="fe fe-log-out"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar " id="left-sidebar">
+        <h5 class="brand-name">Onion Opinion <a class="menu_option float-right" href="javascript:void(0)"><i
+                class="icon-grid font-16" data-placement="left" data-toggle="tooltip"
+                title="Grid & List Toggle"></i></a></h5>
+        <nav class="sidebar-nav" id="left-sidebar-nav">
+            <ul class="metismenu">
+                <li class="g_heading">Directories</li>
+                <li><a href="{% url 'Main:user_surveys' %}"><i class="fe fe-file-text"></i><span>Surveys</span></a>
+                </li>
+                <li><a href="{% url 'Main:create_survey' %}"><i class="fa fa-plus"></i><span>Create Survey</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:users' %}"><i class="fe fe-users"></i><span>Users</span></a>
+                </li>
+
+                <li><a href="{% url 'Accounts:create_user' %}"><i
+                        class="fe fe-user-plus    "></i><span>Create User</span></a>
+                </li>
+                {% endif %}
+                <li><a href="{% url 'Accounts:update_info' %}"><i class="icon-user"></i><span>Update Info</span></a>
+                </li>
+                <li><a href="{% url 'Accounts:change_password' %}"><i class="icon-lock"></i><span>Change Password</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:messages' %}"><i class="fe fe-mail"></i><span>Messages</span></a>
+                </li>
+                {% endif %}
+                {% if user.is_superuser == False %}
+                <li><a href="{% url 'Main:contact_us' %}"><i class="fe fe-mail"></i><span>Report to Admin</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="page">
+        <div class="section-body" id="page_top">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <div class="left">
+                        <h1 class="page-title">Dashboard</h1>
+                    </div>
+                    <div class="right">
+                        <div class="notification d-flex">
+                            <div class="dropdown d-flex">
+                                <a href="{% url 'Accounts:logout' %}"
+                                   class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-1"><i
+                                        class="fe fe-log-out mr-1"></i> Sign out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="container-fluid">
+                <h4>Messages Page</h4>
+            </div>
+        </div>
+        <div class="section-body  py-4">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="table-responsive mb-4">
+                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                <thead>
+                                <tr>
+                                    <th><i class="fe fe-hash"></i></th>
+                                    <th>Email</th>
+                                    <th>Full Name</th>
+                                    <th>Subject</th>
+                                    <th>Send Date</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in messages %}
+                                <tr>
+                                    <td> {{ forloop.counter }}</td>
+                                    <td> {{ item.sender_email }}</td>
+                                    <td> {{ item.sender_name }}</td>
+                                    <td> {{ item.msg_subject }}</td>
+                                    <td> {{ item.send_date }}</td>
+                                    <td> {{ item.msg_text }}</td>
+                                    <td> {{ item.msg_status }}</td>
+                                    <td>
+                                        {% if item.msg_status == 'unread' %}
+                                        <a class="btn btn-primary" data-toggle="tooltip"
+                                           href="change_message_status/{{item.id}}/read"
+                                           title="Mark Read"><i class="fa fa-envelope-o"></i></a>
+                                        {% else %}
+                                        <a class="btn btn-info" data-toggle="tooltip"
+                                           href="change_message_status/{{item.id}}/unread"
+                                           title="Mark Unread"><i class="fa fa-envelope-open-o"></i></a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            Copyright © 2019 <a href="javascript:void(0)">Onion Opinion</a>.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<script src="{% static '/bundles/lib.vendor.bundle.js' %}"></script>
+<script src="{% static '/js/core.js' %}"></script>
+</body>
+</html>

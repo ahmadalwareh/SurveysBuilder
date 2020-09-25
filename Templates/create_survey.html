@@ -1,0 +1,242 @@
+<!doctype html>
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="Onion Opinion" name="description">
+    <meta content="Onion Opinion designer" name="author">
+    <link href="{% static '/images/favicon.ico' %}" rel="icon" type="image/x-icon"/>
+    <title>Onion Opinion | Create Survey</title>
+    <!-- Bootstrap Core and vandor -->
+    <link href="{% static '/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <!-- Core css -->
+    <link href="{% static '/css/main.css' %}" rel="stylesheet"/>
+    <link href="{% static '/css/theme2.css' %}" rel="stylesheet"/>
+    <!--create survey-->
+    <link href="{% static '/survey/css/style.css' %}" rel="stylesheet"/>
+
+    <style>
+        [data-type="autocomplete"] , [data-type="button"] , [data-type="file"], [data-type="paragraph"] , [data-type="hidden"] , [data-type="header"]{
+          display: none !important;
+        }
+        .form-builder:first-child {
+            display:none;
+        }
+        .get-data, .save-template, .other-wrap , .multiple-wrap , .description-wrap , .className-wrap , .required-wrap ,
+         .access-wrap , .toggle-wrap, .name-wrap, .inline-wrap , .toggle-wrap , .placeholder-wrap, .value-wrap, .min-wrap, .max-wrap, .step-wrap,
+          .option-value, .input-control-5, .subtype-wrap, .maxlength-wrap , .rows-wrap{
+            display:none !important;
+        }
+
+    </style>
+</head>
+<body class="font-opensans">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div id="main_content">
+    <div class="header_top" id="header_top">
+        <div class="container">
+            <div class="hright">
+                <div class="dropdown">
+                    <a class="nav-link icon menu_toggle" data-original-title="Expand" data-toggle="tooltip"
+                       href="javascript:void(0)"><i class="fa fa-align-left"></i></a>
+                    <a class="nav-link icon menu_toggle" data-original-title="Logout" data-toggle="tooltip"
+                       href="javascript:void(0)"><i class="fe fe-log-out"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar " id="left-sidebar">
+        <h5 class="brand-name">Onion Opinion <a class="menu_option float-right" href="javascript:void(0)"><i
+                class="icon-grid font-16" data-placement="left" data-toggle="tooltip"
+                title="Grid & List Toggle"></i></a></h5>
+        <nav class="sidebar-nav" id="left-sidebar-nav">
+            <ul class="metismenu">
+                <li class="g_heading">Directories</li>
+                <li><a href="{% url 'Main:user_surveys' %}"><i class="fe fe-file-text"></i><span>Surveys</span></a>
+                </li>
+                <li><a href="{% url 'Main:create_survey' %}"><i class="fa fa-plus"></i><span>Create Survey</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:users' %}"><i class="fe fe-users"></i><span>Users</span></a>
+                </li>
+
+                <li><a href="{% url 'Accounts:create_user' %}"><i
+                        class="fe fe-user-plus    "></i><span>Create User</span></a>
+                </li>
+                {% endif %}
+                <li><a href="{% url 'Accounts:update_info' %}"><i class="icon-user"></i><span>Update Info</span></a>
+                </li>
+                <li><a href="{% url 'Accounts:change_password' %}"><i class="icon-lock"></i><span>Change Password</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:messages' %}"><i class="fe fe-mail"></i><span>Messages</span></a>
+                </li>
+                {% endif %}
+                {% if user.is_superuser == False %}
+                <li><a href="{% url 'Main:contact_us' %}"><i class="fe fe-mail"></i><span>Report to Admin</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="page">
+        <div class="section-body" id="page_top">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <div class="left">
+                        <h1 class="page-title">Dashboard</h1>
+                    </div>
+                    <div class="right">
+                        <div class="notification d-flex">
+                            <div class="dropdown d-flex">
+                                <a href="{% url 'Accounts:logout' %}"
+                                   class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-1"><i
+                                        class="fe fe-log-out mr-1"></i> Sign out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="container-fluid">
+                <h4>Create Survey</h4>
+            </div>
+        </div>
+        <div class="section-body  py-4">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Survey Title</label>
+                            <input type="text" class="form-control" id="survey_title" name="title" required>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Survey Name</label>
+                            <input type="text" class="form-control" id="survey_name" name="name" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div id="build-wrap"></div>
+
+
+                        <div class="form-group">
+
+                            <label class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input" id="is_private" name="is_private"
+                                       value="1">
+                                <span class="custom-control-label">Private</span>
+                            </label>
+                        </div>
+
+                        <button class="btn btn-primary" id="save-survey" type="button">Save</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            Copyright © 2019 <a href="javascript:void(0)">Onion Opinion</a>.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<!-- Button trigger modal -->
+<button type="button" id="lunch_done_operation" class="btn btn-primary hide" data-toggle="modal"
+        data-target="#done_operation" style="display:none"></button>
+<!-- Modal -->
+<div class="modal fade" id="done_operation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Done Operation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="{% static '/images/slider3.svg' %}" class="img-responsive"/>
+                        <h3 class="text-center">
+                            Survey is created successfully!
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="window.location.href = '/user_surveys'" class="btn btn-primary">View
+                    Surveys
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/bundles/lib.vendor.bundle.js' %}"></script>
+<script src="{% static '/js/core.js' %}"></script>
+
+<!--create survey-->
+<script src="{% static '/survey/js/jquery.min.js' %}"></script>
+<script src="{% static '/survey/js/jquery-ui.min.js' %}"></script>
+<script src="{% static '/survey/js/form-builder.min.js' %}"></script>
+<script src="{% static '/survey/js/script.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+var fbEditor = document.getElementById('build-wrap');
+var formBuilder = $(fbEditor).formBuilder();
+document.getElementById('save-survey').addEventListener('click', function() {
+    var survey_title = $('#survey_title').val();
+    var survey_name = $('#survey_name').val();
+    if($('#is_private').is(":checked")){
+        var is_private = true;
+    }else{
+        var is_private = false;
+    }
+    if(survey_title === '' || survey_name === ''){
+        alert('Please fill Survey Title & Name');
+    }else{
+      var survey_data = JSON.stringify(formBuilder.actions.getData());
+       $.ajax({
+        url: '{% url 'Main:create_survey' %}',
+        type: 'POST',
+        data: {
+          'is_private' : is_private,
+          'survey_title' : survey_title,
+          'survey_name' : survey_name,
+          'survey_data': survey_data,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+        if(data == 1){
+            $('#lunch_done_operation').click();
+        }
+        }
+      });
+    }
+});
+});
+
+
+
+</script>
+</body>
+</html>

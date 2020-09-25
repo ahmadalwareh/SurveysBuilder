@@ -1,0 +1,359 @@
+<!doctype html>
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Onion Opinion">
+    <meta name="author" content="Onion Opinion designer">
+    <link rel="icon" href="{% static '/images/favicon.ico' %}" type="image/x-icon"/>
+    <title>Onion Opinion | Statistics</title>
+    <!-- Bootstrap Core and vandor -->
+    <link rel="stylesheet" href="{% static '/plugins/bootstrap/css/bootstrap.min.css' %}"/>
+    <!-- Core css -->
+    <link rel="stylesheet" href="{% static '/css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static '/css/theme2.css' %}"/>
+</head>
+<body class="font-opensans">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div id="main_content">
+    <div id="header_top" class="header_top">
+        <div class="container">
+            <div class="hright">
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="nav-link icon menu_toggle" data-toggle="tooltip"
+                       data-original-title="Expand"><i class="fa fa-align-left"></i></a>
+                    <a href="javascript:void(0)" class="nav-link icon menu_toggle" data-toggle="tooltip"
+                       data-original-title="Logout"><i class="fe fe-log-out"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="left-sidebar" class="sidebar ">
+        <h5 class="brand-name">Onion Opinion <a href="javascript:void(0)" class="menu_option float-right"><i
+                class="icon-grid font-16" data-toggle="tooltip" data-placement="left"
+                title="Grid & List Toggle"></i></a></h5>
+        <nav id="left-sidebar-nav" class="sidebar-nav">
+            <ul class="metismenu">
+                <li class="g_heading">Directories</li>
+                <li><a href="{% url 'Main:user_surveys' %}"><i class="fe fe-file-text"></i><span>Surveys</span></a>
+                </li>
+                <li><a href="{% url 'Main:create_survey' %}"><i class="fa fa-plus"></i><span>Create Survey</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:users' %}"><i class="fe fe-users"></i><span>Users</span></a>
+                </li>
+
+                <li><a href="{% url 'Accounts:create_user' %}"><i
+                        class="fe fe-user-plus    "></i><span>Create User</span></a>
+                </li>
+                {% endif %}
+                <li><a href="{% url 'Accounts:update_info' %}"><i class="icon-user"></i><span>Update Info</span></a>
+                </li>
+                <li><a href="{% url 'Accounts:change_password' %}"><i class="icon-lock"></i><span>Change Password</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:messages' %}"><i class="fe fe-mail"></i><span>Messages</span></a>
+                </li>
+                {% endif %}
+                {% if user.is_superuser == False %}
+                <li><a href="{% url 'Main:contact_us' %}"><i class="fe fe-mail"></i><span>Report to Admin</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="page">
+        <div id="page_top" class="section-body">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <div class="left">
+                        <h1 class="page-title">Dashboard</h1>
+                    </div>
+                    <div class="right">
+                        <div class="notification d-flex">
+                            <div class="dropdown d-flex">
+                                <a href="{% url 'Accounts:logout' %}"
+                                   class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-1"><i
+                                        class="fe fe-log-out mr-1"></i> Sign out</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="container-fluid">
+                <h4>Statistics</h4>
+            </div>
+        </div>
+        <div class="section-body  py-4">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center card shadow-lg p-2" style="text-transform: capitalize;">
+                            {{select_survey}} {% if select_survey.is_encrypted %} <p style="color:red"> Encrypted ! </p> {% endif %}</h2>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    {% for question in select_questions %}
+                    {% if question.question_type == 'checkbox-group'%}
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Q-{{ forloop.counter }}: {{ question.question_body }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div id="apex-simple-donut-baraa-checkbox"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if question.question_type == 'radio-group'%}
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Q-{{ forloop.counter }}: {{ question.question_body }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div id="apex-simple-donut-baraa-radio{{ forloop.counter }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if question.question_type == 'select'%}
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Q-{{ forloop.counter }}: {{ question.question_body }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div id="apex-simple-donut-baraa-select"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+
+                    {% for question in select_questions %}
+                    {% if question.question_type != 'checkbox-group' and question.question_type != 'radio-group' and question.question_type != 'select' %}
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-status bg-green"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Q-{{ forloop.counter }}: {{ question.question_body }}</h3>
+                                <div class="card-options">
+                                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
+                                            class="fe fe-chevron-up"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p>Answers:</p>
+                                <br>
+                                {% for answer in select_answers %}
+                                {% if answer.question_id == question.id %}
+                                <h6>- {{ answer.answer }}</h6><br>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            Copyright © 2019 <a href="javascript:void(0)">Onion Opinion</a>.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<script src="{% static '/bundles/lib.vendor.bundle.js' %}"></script>
+<script src="{% static 'bundles/apexcharts.bundle.js' %}"></script>
+<script src="{% static '/js/core.js' %}"></script>
+<script src="{% static '/js/chart/apex.js' %}"></script>
+<script type="text/javascript">
+    // SIMPLE DONUT
+    $(document).ready(function() {
+
+    {% for question in select_questions %}
+
+
+
+
+    {% if question.question_type == 'checkbox-group'%}
+            var checkbox_series = [] ;
+              var checkbox_answer_name = [] ;
+    {% for answers in select_answers %}
+     {% if question.id == answers.question_id %}
+ {% for users_answer in select_users_answers %}
+   {% if users_answer.answer_id == answers.id %}
+        checkbox_series.push({{users_answer.id__count}});
+        checkbox_answer_name.push('{{answers.answer}}');
+         {% endif %}
+            {% endfor %}
+         {% endif %}
+ {% endfor %}
+ //console.log(checkbox_series);
+        var options = {
+            chart: {
+                height: 250,
+                type: 'donut',
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                show: true,
+            },
+            colors: ['#001f71', '#3a4b60', '#6c7989', '#9aa2ac'],
+            series: checkbox_series,
+            labels: checkbox_answer_name,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#apex-simple-donut-baraa-checkbox"),
+            options
+        );
+
+        chart.render();
+
+        {% endif %}
+
+
+
+
+
+         {% if question.question_type == 'radio-group'%}
+              var checkbox_series = [] ;
+              var checkbox_answer_name = [] ;
+    {% for answers in select_answers %}
+     {% if question.id == answers.question_id %}
+ {% for users_answer in select_users_answers %}
+   {% if users_answer.answer_id == answers.id %}
+        checkbox_series.push({{users_answer.id__count}});
+        checkbox_answer_name.push('{{answers.answer}}');
+         {% endif %}
+            {% endfor %}
+         {% endif %}
+ {% endfor %}
+ //console.log(checkbox_series);
+        var options = {
+            chart: {
+                height: 250,
+                type: 'donut',
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                show: true,
+            },
+            colors: ['#001f71', '#3a4b60', '#6c7989', '#9aa2ac'],
+            labels: checkbox_answer_name,
+            series: checkbox_series,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#apex-simple-donut-baraa-radio{{ forloop.counter }}"),
+            options
+        );
+
+        chart.render();
+
+        {% endif %}
+
+
+
+
+
+         {% if question.question_type == 'select'%}
+                      var checkbox_series = [] ;
+              var checkbox_answer_name = [] ;
+    {% for answers in select_answers %}
+     {% if question.id == answers.question_id %}
+ {% for users_answer in select_users_answers %}
+   {% if users_answer.answer_id == answers.id %}
+        checkbox_series.push({{users_answer.id__count}});
+        checkbox_answer_name.push('{{answers.answer}}');
+         {% endif %}
+            {% endfor %}
+         {% endif %}
+ {% endfor %}
+ //console.log(checkbox_series);
+        var options = {
+            chart: {
+                height: 250,
+                type: 'donut',
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                show: true,
+            },
+            colors: ['#001f71', '#3a4b60', '#6c7989', '#9aa2ac'],
+            series: checkbox_series,
+             labels: checkbox_answer_name,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#apex-simple-donut-baraa-select"),
+            options
+        );
+
+        chart.render();
+
+        {% endif %}
+        {% endfor %}
+
+    });
+
+</script>
+</body>
+</html>

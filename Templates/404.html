@@ -1,0 +1,61 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="Onion Opinion" name="description">
+    <meta content="Onion Opinion designer" name="author">
+    <link href="{% static '/images/favicon.ico' %}" rel="icon" type="image/x-icon"/>
+    <title>Onion Opinion | 404</title>
+    <!-- Bootstrap Core and vandor -->
+    <link href="{% static '/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <!-- Core css -->
+    <link href="{% static '/css/main.css' %}" rel="stylesheet"/>
+    <link href="{% static '/css/theme2.css' %}" rel="stylesheet"/>
+</head>
+<body class="font-opensans">
+<div class="auth">
+    <div class="auth_left">
+        <div class="card">
+            <div class="card-body">
+                <div class="display-3 text-muted mb-5"><i class="si si-exclamation"></i> 404</div>
+                <h1 class="h3 mb-3">Oops.. </h1>
+                <p class="h6 text-muted font-weight-normal mb-3">Page Not Found&hellip;</p>
+                <a class="btn btn-primary" href="{% url 'Main:home' %}"><i class="fe fe-arrow-left mr-2"></i>Go To Home</a>
+            </div>
+        </div>
+    </div>
+    <div class="auth_right">
+        <div class="carousel slide" data-interval="3000" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img alt="404 page" class="img-fluid" src="{% static '/images/slider1.png' %}"/>
+                    <div class="px-4 mt-4">
+                        <h4>Fully Responsive</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img alt="404 page" class="img-fluid" src="{% static '/images/slider2.svg' %}"/>
+                    <div class="px-4 mt-4">
+                        <h4>Quality Code and Easy Customizability</h4>
+                        <p>There are many variations of passages of Lorem Ipsum available.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img alt="404 page" class="img-fluid" src="{% static '/images/slider3.png' %}"/>
+                    <div class="px-4 mt-4">
+                        <h4>Cross Browser Compatibility</h4>
+                        <p>Overview We're a group of women who want to learn JavaScript.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/bundles/lib.vendor.bundle.js' %}"></script>
+<script src="{% static '/js/core.js' %}"></script>
+</body>
+</html>

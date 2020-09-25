@@ -1,0 +1,365 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="Onion Opinion" name="description">
+    <meta content="Onion Opinion designer" name="author">
+    <link href="{% static '/images/favicon.ico' %}" rel="icon" type="image/x-icon"/>
+    <title>Onion Opinion | Surveys</title>
+    <!-- Bootstrap Core and vandor -->
+    <link href="{% static '/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <!-- Core css -->
+    <link href="{% static '/css/main.css' %}" rel="stylesheet"/>
+    <link href="{% static '/css/theme2.css' %}" rel="stylesheet"/>
+</head>
+<body class="font-opensans">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div id="main_content">
+    <div class="header_top" id="header_top">
+        <div class="container">
+            <div class="hright">
+                <div class="dropdown">
+                    <a class="nav-link icon menu_toggle" data-original-title="Expand" data-toggle="tooltip"
+                       href="javascript:void(0)"><i class="fa fa-align-left"></i></a>
+                    <a class="nav-link icon menu_toggle" data-original-title="Logout" data-toggle="tooltip"
+                       href="{% url 'Accounts:logout' %}"><i class="fe fe-log-out"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar " id="left-sidebar">
+        <h5 class="brand-name">Onion Opinion <a class="menu_option float-right" href="javascript:void(0)"><i
+                class="icon-grid font-16" data-placement="left" data-toggle="tooltip"
+                title="Grid & List Toggle"></i></a></h5>
+        <nav class="sidebar-nav" id="left-sidebar-nav">
+            <ul class="metismenu">
+                <li class="g_heading">Directories</li>
+
+                <li><a href="{% url 'Main:user_surveys' %}"><i class="fe fe-file-text"></i><span>Surveys</span></a>
+                </li>
+                <li><a href="{% url 'Main:create_survey' %}"><i class="fa fa-plus"></i><span>Create Survey</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:users' %}"><i class="fe fe-users"></i><span>Users</span></a>
+                </li>
+
+                <li><a href="{% url 'Accounts:create_user' %}"><i
+                        class="fe fe-user-plus    "></i><span>Create User</span></a>
+                </li>
+                {% endif %}
+                <li><a href="{% url 'Accounts:update_info' %}"><i class="icon-user"></i><span>Update Info</span></a>
+                </li>
+                <li><a href="{% url 'Accounts:change_password' %}"><i class="icon-lock"></i><span>Change Password</span></a>
+                </li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'Main:messages' %}"><i class="fe fe-mail"></i><span>Messages</span></a>
+                </li>
+                {% else %}
+                <li><a href="{% url 'Main:contact_us' %}"><i class="fe fe-mail"></i><span>Report to Admin</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="page">
+        <div class="section-body" id="page_top">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <div class="left">
+                        <h1 class="page-title">Dashboard</h1>
+                    </div>
+                    <div class="right">
+                        <div class="notification d-flex">
+                            <div class="dropdown d-flex">
+                                <a href="{% url 'Accounts:logout' %}"
+                                   class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-1"><i
+                                        class="fe fe-log-out mr-1"></i> Sign out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="container-fluid">
+                <h4>Surveys</h4>
+            </div>
+        </div>
+        <div class="section-body  py-4">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="table-responsive mb-4">
+                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                <thead>
+                                <tr>
+                                    <th><i class="fe fe-hash"></i></th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>URL</th>
+                                    <th>Statistics</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for item in user_surveys %}
+                                    <tr>
+                                        <td> {{ forloop.counter }}</td>
+                                        <td> {{ item.s_name }}</td>
+                                        <td> {{ item.creation_date }}</td>
+                                        <td> {{ item.s_status }} , {% if item.is_private %} private {% else %} public {% endif %},
+                                            {% if item.is_encrypted %} encrypted {% else %} not encrypted {% endif %}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info" data-toggle="tooltip" onclick="copy_link(this.id)" id="survey-link-{{ forloop.counter }}"
+                                                    title="Copy Url"
+                                                    data-url="http://onionopinion.online/answer_survey/{{ item.id }}"><i
+                                                    class="fa fa-chain"></i></button>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-info" data-toggle="tooltip"
+                                               href="{% url 'Main:view_survey_statistics' item.id %}"
+                                               title="View statistics"><i class="fe fe-trending-up"></i></a>
+                                        </td>
+                                        <td>
+
+                                            {% if item.is_encrypted == 0 and item.s_status == 'ended' and user.id == item.user_id %}
+                                            <a class="btn btn-info" data-toggle="tooltip" onclick="encryptKey({{item.id}})"
+                                               href="#"
+                                               title="Encrypt Survey" id="EncryptBtn"><i class="icon-key"></i></a>
+                                            {% endif %}
+                                            {% if item.is_encrypted == 1 and item.s_status == 'ended' and user.id == item.user_id %}
+                                            <a class="btn btn-primary" data-toggle="tooltip"
+                                               href="#" onclick="lunch_decrypt_modal({{item.id}})"
+                                               title="Decrypt Survey" id="DecryptBtn"><i class="fa fa-500px"></i></a>
+                                            {% endif %}
+
+                                            {% if user.is_superuser and item.s_status == 'active' and item.is_encrypted == False %}
+                                            <a class="btn btn-info" data-toggle="tooltip"
+                                               href="change_survey_status/{{item.id}}/waiting"
+                                               title="Return to Waiting Status"><i class="icon-bubbles"></i></a>
+                                            {% elif user.is_superuser and item.s_status == 'waiting' or user.is_superuser and item.s_status == 'ended' and item.is_encrypted == False %}
+                                            <a class="btn btn-primary" data-toggle="tooltip"
+                                               href="change_survey_status/{{item.id}}/active"
+                                               title="Activate Survey"><i class="fe fe-loader"></i></a>
+                                            {% endif %}
+
+                                            {% if item.s_status == 'active' and user.id == item.user_id %}
+
+                                            <a class="btn btn-primary" data-toggle="tooltip"
+                                               href="change_survey_status/{{item.id}}/ended"
+                                               title="End Survey"><i class="fe fe-power"></i></a>
+
+                                            {% endif %}
+
+                                            {% if item.is_private %}
+                                            <a class="btn btn-primary" data-toggle="tooltip"
+                                               href="change_survey_privacy/{{item.id}}/public"
+                                               title="Make Public"><i class="icon-lock"></i></a>
+                                            {% else %}
+                                            <a class="btn btn-info" data-toggle="tooltip"
+                                               href="change_survey_privacy/{{item.id}}/private"
+                                               title="Make Private"><i class="icon-lock-open"></i></a>
+                                            {% endif %}
+                                            <a class="btn btn-primary" data-toggle="tooltip"
+                                               href="delete/{{item.id}}"
+                                               title="Delete Survey"><i class="fe fe-trash-2"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            Copyright © 2020 <a href="javascript:void(0)">Onion Opinion</a>.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<!-- Button trigger modal -->
+<button type="button" id="lunch_done_operation" class="btn btn-primary hide" data-toggle="modal"
+        data-target="#done_operation" style="display:none"></button>
+<!-- Modal -->
+<div class="modal fade" id="done_operation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Your Survey Url</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img src="{% static '/images/012-forms.svg' %}" class="img-responsive w-25"/>
+                        <h2 class="text-center mt-3">
+                            Survey URL Copied to Clipboard!
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" id="lunch_done_operation_key" class="btn btn-primary hide" data-toggle="modal"
+        data-target="#done_operation-key" style="display:none"></button>
+<!-- Modal -->
+<div class="modal fade" id="done_operation-key" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">Done Operation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img src="{% static '/images/attention.png' %}" class="img-responsive w-25"/>
+                        <div id="gen-key" class="alert alert-info mt-3" style="word-break: break-word;"></div>
+                        <button id="copy-key" class="btn btn-info">Copy Key</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button type="button" id="decrypt-form-btn" class="btn btn-primary hide" data-toggle="modal" data-target="#decrypt-form"
+        style="display:none"></button>
+<!-- Modal -->
+<div class="modal fade" id="decrypt-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">Decrypt Survery</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background: #dedede;">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img src="{% static '/images/005-uppercase.svg' %}" class="img-responsive w-25"/>
+                        <div class="form-group">
+                            <label>Decryption key <span class="text-danger">*</span></label>
+                            <input type="password" id="decryption-key" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="decryption()" class="btn btn-info">Decrypt</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/bundles/lib.vendor.bundle.js' %}"></script>
+<script src="{% static '/js/core.js' %}"></script>
+
+<script>
+$( document ).ready(function() {
+   var survey_id_for_decrypt;
+});
+
+function copy_link(id){
+   var copyText = $('#'+id).attr('data-url');
+   document.addEventListener('copy', function(e) {
+      e.clipboardData.setData('text/plain', copyText);
+      e.preventDefault();
+   }, true);
+   document.execCommand('copy');
+   $('#lunch_done_operation').click();
+}
+
+
+function encryptKey(id)
+{
+    $.ajax({
+        url: '{% url 'Main:encrypt' %}',
+        type: 'POST',
+        data: {
+          'id' : id,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+            $('#lunch_done_operation_key').click();
+            $('#gen-key').append(data);
+            $('#copy-key').attr("data-key", data);
+        }
+      });
+}
+
+function lunch_decrypt_modal(id)
+{
+    $('#decrypt-form-btn').click();
+    survey_id_for_decrypt = id;
+
+}
+
+function decryption(){
+var decryption_key = $('#decryption-key').val();
+
+$.ajax({
+        url: '{% url 'Main:decrypt' %}',
+        type: 'POST',
+        data: {
+          'id' : survey_id_for_decrypt,
+          'decryption_key' : decryption_key,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+            location.reload();
+           }
+      });
+    }
+
+ $('#copy-key').click(function (e) {
+   e.preventDefault();
+   var copyText = $(this).attr('data-key');
+   document.addEventListener('copy', function(e) {
+      e.clipboardData.setData('text/plain', copyText);
+      e.preventDefault();
+   }, true);
+   document.execCommand('copy');
+    location.reload();
+ });
+
+</script>
+</body>
+</html>

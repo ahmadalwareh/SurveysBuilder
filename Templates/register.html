@@ -1,0 +1,170 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="Onion Opinion" name="description">
+    <meta content="Onion Opinion designer" name="author">
+
+    <link href="{% static '/images/favicon.ico' %}" rel="icon" type="image/x-icon"/>
+
+    <title>Onion Opinion | Register</title>
+
+    <!-- Bootstrap Core and vandor -->
+    <link href="{% static '/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+
+    <!-- Core css -->
+    <link href="{% static '/css/main.css' %}" rel="stylesheet"/>
+    <link href="{% static '/css/theme2.css' %}" rel="stylesheet"/>
+
+</head>
+<body class="font-opensans">
+
+<div class="auth">
+    <div class="auth_left">
+        <div class="card">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="text-center mb-5">
+                        <a class="header-brand" href="{% url 'Main:home' %}"><i class="fa fa-home brand-logo"></i></a>
+                    </div>
+                    <div class="card-title">Create new account</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input class="form-control" name="first_name" placeholder="Enter First Name" required
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input class="form-control" name="last_name" placeholder="Enter Last Name" required
+                                       type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Mobile</label>
+                                <input class="form-control" name="mobile" placeholder="Enter Mobile" required
+                                       type="tel">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Email address</label>
+                                <input class="form-control" name="email" placeholder="Enter email" required
+                                       type="email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Country</label>
+                                <select class="form-control custom-select" name="country">
+                                    <option value="selected disabled hidden">Select Your Country</option>
+                                    {% for result in Countries %}
+                                    <option value='{{ result.id }}'> {{ result.c_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Birthdate</label>
+                                <input class="form-control" name="birth_date" placeholder="Enter Birthdate" required
+                                       type="date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="form-label">Gender</div>
+                                <div class="custom-controls-stacked">
+                                    <label class="custom-control custom-radio custom-control-inline">
+                                        <input checked class="custom-control-input" name="gender" type="radio"
+                                               value="male">
+                                        <span class="custom-control-label">Male</span>
+                                    </label>
+                                    <label class="custom-control custom-radio custom-control-inline">
+                                        <input class="custom-control-input" name="gender" type="radio" value="female">
+                                        <span class="custom-control-label">Female</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input class="form-control" name="password" placeholder="Password" required
+                                       type="password">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Re-Type Password</label>
+                                <input class="form-control" name="re_password" placeholder="Re-Type Password" required
+                                       type="password">
+                            </div>
+                        </div>
+                    </div>
+                                            <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" required/>
+                            <span class="custom-control-label">Agree to Privacy Policy</span>
+                        </label>
+                    <div class="form-footer">
+                        <button class="btn btn-primary btn-block" type="submit">Create new account</button>
+                    </div>
+                </div>
+            </form>
+            <div class="card-footer text-center text-muted">
+                Already have account? <a href="{% url 'Accounts:login' %}">Sign in</a>
+            </div>
+        </div>
+    </div>
+    <div class="auth_right">
+        <div class="carousel slide" data-interval="3000" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img alt="login page" class="img-fluid" src="{% static '/images/slider1.png' %}"/>
+                    <div class="px-4 mt-4">
+                        <h4>Full control</h4>
+                        <p>Control whether your survey is public or private.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img alt="login page" class="img-fluid" src="{% static '/images/slider2.svg' %}"/>
+                    <div class="px-4 mt-4">
+                        <h4>Quality Survey and Easy Customizability</h4>
+                        <p>There are many variations of questions types to use.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img alt="login page" class="img-fluid" src="{% static '/images/slider3.svg' %}"/>
+                    <div class="px-4 mt-4">
+                        <h4>Cross Browser Compatibility</h4>
+                        <p>On Mobile or Desktop you can create and share easily.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static '/bundles/lib.vendor.bundle.js' %}"></script>
+<script src="{% static '/js/core.js' %}"></script>
+</body>
+</html>
